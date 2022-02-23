@@ -50,6 +50,19 @@ impl OscType for bool {
     }
 }
 
+impl OscType for &[u8] {
+    fn width(&self) -> usize {
+        align_up(std::mem::size_of::<i32>() + self.len(), 4)
+    }
+    fn tag(&self) -> u8 {
+        b'b'
+    }
+    fn encode(&self, buf: &mut [u8]) {
+        BigEndian::write_i32(&mut buf[..4], self.len() as i32);
+        buf[4..4 + self.len()].copy_from_slice(self);
+    }
+}
+
 impl OscType for &str {
     fn width(&self) -> usize {
         align_up(self.len() + 1, 4)

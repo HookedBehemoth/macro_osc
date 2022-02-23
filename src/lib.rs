@@ -71,6 +71,17 @@ fn osc_foo() {
 }
 
 #[test]
+fn ytterbium() {
+    let packet = osc_format!("/OSCILLATORS/OSC2/ADSR/z", 0.0, 0.0, 0.0, 0.0);
+    let raw: Vec<u8> = vec![
+        47, 79, 83, 67, 73, 76, 76, 65, 84, 79, 82, 83, 47, 79, 83, 67, 50, 47, 65, 68, 83, 82, 47,
+        122, 0, 0, 0, 0, 44, 102, 102, 102, 102, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0,
+    ];
+    assert_eq!(packet, raw);
+}
+
+#[test]
 fn osc_bool() {
     let packet = osc_format!("/bools", true, false);
     let raw: Vec<u8> = vec![
@@ -79,14 +90,13 @@ fn osc_bool() {
     assert_eq!(packet, raw);
 }
 
-
 #[test]
-fn ytterbium() {
-    let packet = osc_format!("/OSCILLATORS/OSC2/ADSR/z", 0.0, 0.0, 0.0, 0.0);
+fn osc_blob() {
+    let blob: Vec<u8> = vec![1, 2, 3, 4, 5, 6];
+    let packet = osc_format!("/blob", &blob[..]);
     let raw: Vec<u8> = vec![
-        47, 79, 83, 67, 73, 76, 76, 65, 84, 79, 82, 83, 47, 79, 83, 67, 50, 47, 65, 68, 83, 82, 47,
-        122, 0, 0, 0, 0, 44, 102, 102, 102, 102, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0,
+        b'/', b'b', b'l', b'o', b'b', 0x00, 0x00, 0x00, b',', b'b', 0x00, 0x00, 0x00, 0x00, 0x00,
+        0x06, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x00, 0x00,
     ];
     assert_eq!(packet, raw);
 }
