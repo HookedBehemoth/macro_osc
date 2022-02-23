@@ -1,12 +1,12 @@
-mod align;
+pub mod align;
 pub mod types;
 
 #[macro_export]
 macro_rules! osc_format {
     ($addr:expr, $( $x:expr ),* ) => {
         {
-            use types::*;
-            use align::align_up;
+            use $crate::types::*;
+            use $crate::align::align_up;
 
             use std::io::Write;
 
