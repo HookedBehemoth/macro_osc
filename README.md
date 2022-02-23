@@ -1,4 +1,4 @@
-#Macro OSC
+# Macro OSC
 This is an implementation of an [OSC (Open Sound Control)](https://opensoundcontrol.stanford.edu/) formater using rust macros.
 
 This allows the code to boil down to simple move commands, omitting all bound checks and branches.
