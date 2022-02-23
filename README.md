@@ -3,7 +3,7 @@ This is an implementation of an [OSC (Open Sound Control)](https://opensoundcont
 
 This allows the code to boil down to simple move commands, omitting all bound checks and branches.
 
-`osc_format!("/foo", num, -1, "hello", 1.234, 5.678)`
+`osc_format!("/foo", 1000, -1, "hello", 1.234, 5.678)`
 
 compiles down to
 
