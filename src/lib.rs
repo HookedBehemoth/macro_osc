@@ -8,8 +8,6 @@ macro_rules! osc_format {
             use $crate::types::*;
             use $crate::align::align_up;
 
-            use std::io::Write;
-
             debug_assert!($addr.len() > 0, "Empty address!");
             debug_assert!($addr.chars().nth(0) == Some('/'), "Path has to string with '/'");
 
@@ -21,7 +19,7 @@ macro_rules! osc_format {
 
             let mut buf = vec![0u8; size];
 
-            (&mut buf[..]).write_all($addr.as_bytes()).unwrap();
+            buf[..$addr.len()].copy_from_slice($addr.as_bytes());
 
             let mut offset = addr_block_size;
 

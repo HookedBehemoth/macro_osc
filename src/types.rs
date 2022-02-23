@@ -1,6 +1,5 @@
 use crate::align::align_up;
 use byteorder::{BigEndian, ByteOrder};
-use std::io::Write;
 
 pub trait OscType {
     fn width(&self) -> usize
@@ -70,8 +69,8 @@ impl OscType for &str {
     fn tag(&self) -> u8 {
         b's'
     }
-    fn encode(&self, mut buf: &mut [u8]) {
-        buf.write_all(self.as_bytes()).unwrap();
+    fn encode(&self, buf: &mut [u8]) {
+        buf[..self.len()].copy_from_slice(self.as_bytes());
         buf[self.len()] = 0;
     }
 }
