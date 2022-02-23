@@ -71,6 +71,16 @@ fn osc_foo() {
 }
 
 #[test]
+fn osc_bool() {
+    let packet = osc_format!("/bools", true, false);
+    let raw: Vec<u8> = vec![
+        b'/', b'b', b'o', b'o', b'l', b's', 0x00, 0x00, b',', b'T', b'F', 0x00,
+    ];
+    assert_eq!(packet, raw);
+}
+
+
+#[test]
 fn ytterbium() {
     let packet = osc_format!("/OSCILLATORS/OSC2/ADSR/z", 0.0, 0.0, 0.0, 0.0);
     let raw: Vec<u8> = vec![
