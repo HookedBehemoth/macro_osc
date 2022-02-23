@@ -40,9 +40,9 @@ impl OscType for bool {
     }
     fn tag(&self) -> u8 {
         if *self {
-            b't'
+            b'T'
         } else {
-            b'f'
+            b'F'
         }
     }
     fn encode(&self, _buf: &mut [u8]) {
