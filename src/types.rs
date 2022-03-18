@@ -1,5 +1,4 @@
 use crate::align::align_up;
-use byteorder::{BigEndian, ByteOrder};
 
 pub trait OscType {
     #[inline]
@@ -24,7 +23,7 @@ impl OscType for i32 {
     }
     #[inline]
     fn encode(&self, buf: &mut [u8]) {
-        BigEndian::write_i32(buf, *self);
+        buf[0..4].copy_from_slice(&self.to_be_bytes());
     }
 }
 
@@ -35,7 +34,7 @@ impl OscType for f32 {
     }
     #[inline]
     fn encode(&self, buf: &mut [u8]) {
-        BigEndian::write_f32(buf, *self);
+        buf[0..4].copy_from_slice(&self.to_be_bytes());
     }
 }
 
@@ -69,7 +68,7 @@ impl OscType for &[u8] {
     }
     #[inline]
     fn encode(&self, buf: &mut [u8]) {
-        BigEndian::write_i32(&mut buf[..4], self.len() as i32);
+        buf[0..4].copy_from_slice(&(self.len() as i32).to_be_bytes());
         buf[4..4 + self.len()].copy_from_slice(self);
     }
 }
